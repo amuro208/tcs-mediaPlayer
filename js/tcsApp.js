@@ -1,6 +1,4 @@
-	var tcsapp = function(){
-
-	}
+	var tcsapp = {}
 
 	tcsapp.pages = [];
 	tcsapp.previouspage = 0;
@@ -10,34 +8,52 @@
 	tcsapp.isGameReady = false;
 
   tcsapp.tcssocket = null;
-	tcsapp.conf = null;
-	tcsapp.debug = null;
+	tcsapp.panelDebug = null;
+	tcsapp.panelConf = null;
 
 
 
 	tcsapp.init = function(){
 
-			this.debug = new PanelDebug('panelDebug');
-	    this.debug.init();
+			conf = {
+				CMD_SOCKET_ID:1,
+				CMD_SOCKET_IP:"127.0.0.1",
+				CMD_SOCKET_PORT:9000,
+				CMS_IP:"127.0.0.1",
+				CMS_LIST:"/app/codeigniter/index.php/upload/qsrank/",
+				ROOT_PATH:"C:/AMURO/Workspace/TCSVideoPlayer/media",
+				MEDIA_SOURCE:"LOCAL",
+				SYNCMODE:"N",
+				SYNCMODE_MASTER:"N"
+			};
 
-			this.conf = new PanelConf('panelConf');
-			this.conf.init();
 
-			this.tcssocket = new TCSWebSocket();
+			document.addEventListener("onConfigLoaded",()=>{
+				this.panelDebug = new PanelDebug('panelDebug');
+				this.panelDebug.init();
+				this.panelConf = new PanelConf('panelConf');
+				this.panelConf.setKeys(conf);
+				this.panelConf.init();
 
-			if(this.conf.initialReady){
-				this.connectSocket();
+				this.tcssocket = new TCSWebSocket();
 
-			}else{
-				this.conf.show();
+				if(confCtrl.initialReady){
+					this.connectSocket();
 
-			}
-			this.paging(0);
+				}else{
+					this.panelConf.show();
+
+				}
+				mplayer.init();
+				this.paging(0);
+			})
+
+			confCtrl.load();
 	}
 
 
 	tcsapp.connectSocket = function(){
-		this.tcssocket.setip(this.conf.CMD_SOCKET_ID,this.conf.CMD_SOCKET_IP,this.conf.CMD_SOCKET_PORT);
+		this.tcssocket.setip(conf.CMD_SOCKET_ID,conf.CMD_SOCKET_IP,conf.CMD_SOCKET_PORT);
 		this.tcssocket.connect();
 	}
 

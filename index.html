@@ -9,13 +9,14 @@
       <script src="./js/common/json2.js"        type="text/javascript"></script>
       <script src="./js/common/TweenMax.min.js" type="text/javascript"></script>
       <script src="./js/common/common.js"        type="text/javascript"></script>
+      <script src="./js/common/Configuration.js"       type="text/javascript"></script>
+      <script src="./js/common/WebSocket.js"    type="text/javascript"></script>
       <script src="./js/common/CMS.js"        type="text/javascript"></script>
       <script src="./js/common/pageBase.js"        type="text/javascript"></script>
-      <script src="./js/common/WebSocket.js"    type="text/javascript"></script>
       <script src="./js/common/panelConf.js"       type="text/javascript"></script>
       <script src="./js/common/panelDebug.js"       type="text/javascript"></script>
       <script src="./js/tcsMediaPlayer.js"        type="text/javascript"></script>
-	  <script src="./js/tcsDirectoryMonitor.js"        type="text/javascript"></script>
+	    <script src="./js/tcsDirectoryMonitor.js"        type="text/javascript"></script>
       <script src="./js/tcsApp.js"        type="text/javascript"></script>
 
       <link rel="stylesheet" type="text/css" href="./css/bootstrap.min.css">
@@ -58,17 +59,11 @@
 					}
 				});
 
-
         function onload(){
           tcsapp.init();
-		  if(dm.init()){
-			  mplayer.init();
-			  mplayer.pageInit();
-		  }
         }
         document.addEventListener("onload",function(e){
           log("document : onload"+e);
-
         })
       </script>
   </head>
@@ -80,8 +75,8 @@
       <!-- DEBUGGING PANEL-->
       <div id = "panelDebug" class="full-popup"></div>
 
-      <div class="hidden-button lt" onclick="tcsapp.conf.show();" alt = "Open Configuration"></div>
-      <div class="hidden-button rt" onclick="tcsapp.debug.show();" alt = "Open Log Panel"></div>
+      <div class="hidden-button lt" onclick="tcsapp.panelConf.show();" alt = "Open Configuration"></div>
+      <div class="hidden-button rt" onclick="tcsapp.panelDebug.show();" alt = "Open Log Panel"></div>
 
 
       <div class="site-wrapper">
@@ -100,7 +95,7 @@
     <div style="position:absolute;left:0;top:60px;z-index:10000">
       <button onclick = "mplayer.minVideo();">MIN</button>
       <button onclick = "mplayer.maxVideo();">MAX</button>
-      <button onclick = "mplayer.playSequence();">SEQUENCE START</button>
+      <button onclick = "mplayer.dimoutCurrent(-1);">PLAY NEXT</button>
       <div id="vstatus" style="color:#FFF"></div>
     </div>
 
