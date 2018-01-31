@@ -14,7 +14,6 @@ confCtrl.load = function(){
         console.log("NO CONFIGURATION FILE "+err);
         confCtrl.objCopy(conf,preset.current);
         confCtrl.objCopy(conf,preset.default);
-
         var json = JSON.stringify(preset,null ," "); //convert it back to json
         fs.writeFile('configutration.json', json, 'utf8', function writeFileCallback(err){}); // write it back
     } else {

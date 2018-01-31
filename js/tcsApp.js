@@ -1,6 +1,7 @@
 	var tcsapp = {}
 
 	tcsapp.pages = [];
+	tcsapp.confKeys = [];
 	tcsapp.previouspage = 0;
   tcsapp.currentpage = 0;
 
@@ -26,26 +27,23 @@
 				SYNCMODE:"N",
 				SYNCMODE_MASTER:"N"
 			};
-
+			this.panelDebug = new PanelDebug('panelDebug');
+			this.panelConf = new PanelConf('panelConf');
+			this.tcssocket = new TCSWebSocket();
 
 			document.addEventListener("onConfigLoaded",()=>{
-				this.panelDebug = new PanelDebug('panelDebug');
+
 				this.panelDebug.init();
-				this.panelConf = new PanelConf('panelConf');
 				this.panelConf.setKeys(conf);
 				this.panelConf.init();
-
-				this.tcssocket = new TCSWebSocket();
 
 				if(confCtrl.initialReady){
 					this.connectSocket();
 
 				}else{
 					this.panelConf.show();
-
 				}
 				mplayer.init();
-				this.paging(0);
 			})
 
 			confCtrl.load();

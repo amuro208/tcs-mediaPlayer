@@ -18,10 +18,6 @@ mplayer.lastInsertedIndex = -1;
 mplayer.interupt = true;
 mplayer.hasSyncmodeMaster = false;
 mplayer.init = function(){
-
-
-
-
   if(conf.MEDIA_SOURCE == "LOCAL"){
       document.addEventListener("onFilesDetected",(e)=>{
           this.onFirstFilesDetected(e.detail.files);

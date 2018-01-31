@@ -37,8 +37,12 @@
 
 	PanelConf.prototype.setKeys = function (obj){
 		this.keys = [];
-		for(key in obj){
-			this.keys.push(key);
+		if(getType(obj) == "array"){
+			this.keys = obj;
+		}else{
+			for(key in obj){
+				this.keys.push(key);
+			}
 		}
 		console.log("SET KEYS :: "+this.keys);
 	}
